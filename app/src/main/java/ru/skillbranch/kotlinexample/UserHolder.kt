@@ -8,12 +8,18 @@ object UserHolder {
         email: String,
         password: String
     ): User = User.makeUser(fullName, email, password)
-        .also { user -> addUser(user) }
+        .also { user ->
+            try {
+                addUser(user)
+            }catch (e:IllegalArgumentException){
+                throw IllegalArgumentException("A user with this email already exists")
+            }
+        }
 
 
     private fun addUser(user: User) {
         if (map.containsKey(user.login))
-            throw IllegalArgumentException("A user with this email already exists")
+            throw IllegalArgumentException("A user with this login already exists")
         map[user.login] = user
     }
 
@@ -41,7 +47,13 @@ object UserHolder {
         fullName: String,
         rawPhone: String
     ): User = User.makeUser(fullName, phone = rawPhone)
-        .also { user -> addUser(user) }
+        .also { user ->
+            try {
+                addUser(user)
+            }catch (e:IllegalArgumentException){
+                throw IllegalArgumentException("A user with this email already exists")
+            }
+        }
 
     fun requestAccessCode(poneNumber: String): String? {
         User.normalizePhone(poneNumber).also { number ->
