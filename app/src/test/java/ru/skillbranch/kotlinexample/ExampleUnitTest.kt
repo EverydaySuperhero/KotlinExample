@@ -1,9 +1,9 @@
 package ru.skillbranch.kotlinexample
 
 import org.junit.After
-import org.junit.Test
-
 import org.junit.Assert.*
+import org.junit.Test
+import ru.skillbranch.kotlinexample.extensions.Iterable.dropLastUntil
 
 
 /**
@@ -14,16 +14,16 @@ import org.junit.Assert.*
 class ExampleUnitTest {
 
     /**
-        Добавьте метод в UserHolder для очистки значений UserHolder после выполнения каждого теста,
-        это необходимо чтобы тесты можно было запускать одновременно
+    Добавьте метод в UserHolder для очистки значений UserHolder после выполнения каждого теста,
+    это необходимо чтобы тесты можно было запускать одновременно
 
-            @VisibleForTesting(otherwise = VisibleForTesting.NONE)
-            fun clearHolder(){
-                map.clear()
-            }
-    */
+    @VisibleForTesting(otherwise = VisibleForTesting.NONE)
+    fun clearHolder(){
+    map.clear()
+    }
+     */
     @After
-    fun after(){
+    fun after() {
         UserHolder.clearHolder()
     }
 
@@ -84,6 +84,16 @@ class ExampleUnitTest {
             "testPass"
         )
         UserHolder.clearHolder()
+    }
+
+    @Test
+    fun drop_last_until() {
+
+        var str = "house in of risen fools"
+            .split(" ")
+            .dropLastUntil { it == "of" }
+            .last()
+        assertEquals("in",str.toString())
     }
 
     @Test
@@ -257,3 +267,6 @@ class ExampleUnitTest {
         UserHolder.clearHolder()
     }
 }
+
+
+
