@@ -19,7 +19,7 @@ object UserHolder {
 
     private fun addUser(user: User) {
         if (map.containsKey(user.login))
-            throw IllegalArgumentException("A user with this login already exists")
+            throw IllegalArgumentException()
         map[user.login] = user
     }
 
@@ -51,7 +51,7 @@ object UserHolder {
             try {
                 addUser(user)
             }catch (e:IllegalArgumentException){
-                throw IllegalArgumentException("A user with this email already exists")
+                throw IllegalArgumentException("A user with this phone already exists")
             }
         }
 
