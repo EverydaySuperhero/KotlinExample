@@ -3,7 +3,6 @@ package ru.skillbranch.kotlinexample
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
-import ru.skillbranch.kotlinexample.extensions.Iterable.dropLastUntil
 
 
 /**
