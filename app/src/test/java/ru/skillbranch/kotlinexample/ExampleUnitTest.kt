@@ -87,16 +87,6 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun drop_last_until() {
-
-        var str = "house in of risen fools"
-            .split(" ")
-            .dropLastUntil { it == "of" }
-            .last()
-        assertEquals("in",str.toString())
-    }
-
-    @Test
     fun register_user_by_phone_success() {
         val user = UserHolder.registerUserByPhone(
             "John Doe",
