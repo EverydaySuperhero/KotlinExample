@@ -4,13 +4,13 @@ import kotlin.collections.Iterable
 
 object Iterable {
 
-//    fun <T> Iterable<T>.dropLastUntil(function: (T) -> Boolean): List<T>  {
-//        for (item in this){
-//            if(function(item)){
-//                val index = this.indexOf(item)
-//                return this.chunked(index).first()
-//            }
-//        }
-//        return emptyList()
-//    }
+    fun <T> List<T>.dropLastUntil(predicate: (T) -> Boolean): List<T>  {
+        for (item in this){
+            if(predicate(item)){
+                val index = this.indexOf(item)
+                return this.chunked(index).first()
+            }
+        }
+        return emptyList()
+    }
 }

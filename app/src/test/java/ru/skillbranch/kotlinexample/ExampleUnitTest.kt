@@ -3,6 +3,7 @@ package ru.skillbranch.kotlinexample
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
+import ru.skillbranch.kotlinexample.extensions.Iterable.dropLastUntil
 
 
 /**
@@ -20,10 +21,25 @@ class ExampleUnitTest {
     fun clearHolder(){
     map.clear()
     }
+
      */
     @After
     fun after() {
         UserHolder.clearHolder()
+    }
+    @Test
+    fun drop_last_until(){
+
+        val str = "House Nymeros Martell of Sunspear".split(" ")
+            .dropLastUntil{ it == "of" }
+        assertEquals(listOf("House" ,"Nymeros" ,"Martell"),str)
+
+        val lst = listOf(1,2,3)
+            .dropLastUntil{it==2}
+        assertEquals(listOf(1),lst)
+
+
+
     }
 
     @Test
