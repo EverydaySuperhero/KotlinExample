@@ -98,7 +98,7 @@ class User private constructor(
     init {
         println("First init block, primary constructor was called ")
         check(firstName.isNotBlank()) { "FirstName must not be blank" }
-        check(!email.isNullOrBlank() || !rawPhone.isNullOrBlank()) { "email or phone must not be blank" }
+        //check(!email.isNullOrBlank() || !rawPhone.isNullOrBlank()) { "email or phone must not be blank" }
         phone = rawPhone
         login = email ?: phone!!
 
