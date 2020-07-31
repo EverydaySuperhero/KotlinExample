@@ -75,10 +75,13 @@ object UserHolder {
     }
 
     fun importUsers(users: List<String>): List<User> {
+        val usersList = mutableListOf<User>()
         users.forEach{userString->
             val userLst = userString.split(";")
-            var user = User.makeUserCsv(userLst[0],userLst[1],userLst[2],userLst[3])
+            val user = User.makeUserCsv(userLst[0].trim(),userLst[1].trim(),userLst[2].trim(),userLst[3].trim())
+            usersList.add(user)
+            addUser(user)
         }
-        return emptyList()
+        return usersList
     }
 }

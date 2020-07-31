@@ -31,8 +31,8 @@ class ExampleUnitTest {
             " John Doe ;JohnDoe@unknow.com;[B@7fbe847c:91a3c589fd7bd0861d06b023bdaebe1c;;",
             "John Doe;JohnDoe@unknow.com;[B@7fbe847c:91a3c589fd7bd0861d06b023bdaebe1c;;",
             "John;JohnDoe@unknow.com;[B@7fbe847c:91a3c589fd7bd0861d06b023bdaebe1c;;",
-            " John Doe ;JohnDoe@unknow.com;[B@7fbe847c:91a3c589fd7bd0861d06b023bdaebe1c;+7 (917) 971 11-11;"
-            //, " John Doe ;;[B@7fbe847c:91a3c589fd7bd0861d06b023bdaebe1c;+7 (917) 971 11-11;"
+            " John Doe ;JohnDoe@unknow.com;[B@7fbe847c:91a3c589fd7bd0861d06b023bdaebe1c;+7 (917) 971 11-11;",
+            " John Doe ;;[B@7fbe847c:91a3c589fd7bd0861d06b023bdaebe1c;+7 (917) 971 11-11;"
         )
         UserHolder.importUsers(users).forEach {
             assertNotNull(UserHolder.loginUser(it.login, "123456"))
