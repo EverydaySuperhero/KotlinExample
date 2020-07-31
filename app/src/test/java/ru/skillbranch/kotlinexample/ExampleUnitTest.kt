@@ -1,6 +1,7 @@
 package ru.skillbranch.kotlinexample
 
 import org.junit.After
+import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Test
 import ru.skillbranch.kotlinexample.extensions.dropLastUntil
@@ -22,7 +23,22 @@ class ExampleUnitTest {
     map.clear()
     }
 
+
      */
+    @Test
+    fun parse_csv_users() {
+        val users = listOf(
+            " John Doe ;JohnDoe@unknow.com;[B@7fbe847c:91a3c589fd7bd0861d06b023bdaebe1c;;",
+            "John Doe;JohnDoe@unknow.com;[B@7fbe847c:91a3c589fd7bd0861d06b023bdaebe1c;;",
+            "John;JohnDoe@unknow.com;[B@7fbe847c:91a3c589fd7bd0861d06b023bdaebe1c;;",
+            " John Doe ;JohnDoe@unknow.com;[B@7fbe847c:91a3c589fd7bd0861d06b023bdaebe1c;+7 (917) 971 11-11;"
+            //, " John Doe ;;[B@7fbe847c:91a3c589fd7bd0861d06b023bdaebe1c;+7 (917) 971 11-11;"
+        )
+        UserHolder.importUsers(users).forEach {
+            assertNotNull(UserHolder.loginUser(it.login, "123456"))
+        }
+
+    }
     @After
     fun after() {
         UserHolder.clearHolder()

@@ -59,6 +59,7 @@ class User private constructor(
         passwordHash = encrypt(password)
     }
 
+
     //For phone
     constructor(
         firstName: String,
@@ -68,6 +69,21 @@ class User private constructor(
         println("Secondary phone constructor")
         requestAccessCode()
     }
+
+    // For csv
+    constructor(
+        firstName: String,
+        lastName: String?,
+        email: String?,
+        hash: String?,
+        salt: String?,
+        phone: String?
+    ) : this(firstName, lastName, email = email, meta = mapOf("src" to "csv")) {
+        println("Secondary csv constructor")
+        passwordHash = hash!!
+        this.salt = salt
+    }
+
 
     fun requestAccessCode(): String {
         val code = generateAccessCode()
@@ -163,6 +179,32 @@ class User private constructor(
             }
         }
 
+        fun makeUserCsv(
+            fullName: String,
+            email: String? = null,
+            saltHash: String? = null,
+            phone: String? = null
+        ): User {
+            val (firstName, lastName) = fullName.fullNameToPair()
+            val (salt, hash) = saltHash.saltHashToPair()
+            var nPhone: String? = null
+            if (!phone.isNullOrEmpty())
+                normalizePhone(phone).also {
+                    if (isValidPhone(it))
+                        nPhone = it
+                }
+            return User(
+                firstName,
+                lastName,
+                email?.trim(),
+                salt,
+                hash,
+                nPhone
+            )
+
+        }
+
+
         fun isValidPhone(number: String): Boolean = number.matches("\\+?\\d{11}".toRegex())
         fun normalizePhone(number: String): String = number.replace("""[^+\d]""".toRegex(), "")
 
@@ -175,12 +217,26 @@ class User private constructor(
                         2 -> first() to last()
                         else -> throw IllegalArgumentException(
                             "FullName must contain only first and last name, current split " +
-                                    "result: ${this@fullNameToPair}"
+                                    "result: $this"
                         )
                     }
                 }
+
+        private fun String?.saltHashToPair(): Pair<String?, String?> {
+            if (!this.isNullOrEmpty())
+                this.split(":")
+                    .filter { it.isNotBlank() }
+                    .run {
+                        return first() to last()
+                    }
+
+            return null to null
+        }
+
     }
 }
+
+
 
 
 

@@ -19,7 +19,7 @@ object UserHolder {
 
     private fun addUser(user: User) {
         if (map.containsKey(user.login))
-            throw IllegalArgumentException()
+            throw IllegalArgumentException("user with such key exists")
         map[user.login] = user
     }
 
@@ -72,5 +72,14 @@ object UserHolder {
                 return loginUserByPhone(login, pass)?.userInfo
         }
         return loginUserByEmail(login, pass)?.userInfo
+    }
+
+    fun importUsers(users: List<String>): List<User> {
+        users.forEach{userString->
+            val userLst = userString.split(";")
+
+            var user = User.makeUserCsv(userLst[0],userLst[1],userLst[2],userLst[3])
+        }
+        return emptyList()
     }
 }
